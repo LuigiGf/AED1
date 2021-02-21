@@ -1,40 +1,58 @@
 #include <stdlib.h>
 
-typedef struct
-{
-    float entrada;
-    struct Pilha *prox; 
- 
-}Pilha;
- 
 typedef struct {
+    //dados
+    int exemplo;
+}PilhaItem;
+
+typedef struct PilhaCelula *PilhaApontador;
+
+typedef struct {
+    PilhaItem item;
+    PilhaApontador prox;
+}PilhaCelula;
+
+typedef struct {
+    PilhaApontador ApontadorTopo;
     int tamanho;
-    Pilha* PointerTopo;
-}Topo;
- 
-void start(Topo *p){
-    p->tamanho = 0;
-    p->PointerTopo= NULL;
+}TADPilha;
+
+void PilhaInicia(TADPilha *pPilha){
+    pPilha->tamanho = 0;
+    pPilha->ApontadorTopo = NULL;
 }
- 
-void add(Topo *p, float v){
-    Pilha *new;
-    new =(Pilha *) malloc(sizeof(Pilha));
-    new->entrada = v;
-    new->prox = p->PointerTopo;
-    p->PointerTopo = new;
-    p->tamanho++;
+
+int PilhaVazia (TADPilha *pPilha){
+    return (pPilha->ApontadorTopo == NULL);
 }
- 
-void rem(Topo *p, float *v){
-    Pilha *aux;
-    aux = p->PointerTopo;
-    if (p->tamanho == 0)
+
+int PilhaTamanho(TADPilha *pPilha){
+    return pPilha->tamanho;
+}
+
+void PilhaInsere(TADPilha *pPilha, int entradaExemplo){
+    PilhaApontador pCelulaNova;
+
+    pCelulaNova = (PilhaApontador) malloc(sizeof(PilhaCelula));
+    pCelulaNova->item = entradaExemplo;
+    pCelulaNova->prox = pPilha->ApontadorTopo;
+    pPilha->ApontadorTopo = pCelulaNova;
+    pPilha->tamanho++;
+    return;
+}
+
+void PilhaRemove(TADPilha *pPilha, PilhaItem *pilhaitem){
+    PilhaApontador pAux;
+
+    if(PilhaVazia(pPilha)){
         return;
-    else{
-        *v = aux->entrada;
-        p->PointerTopo = aux->prox;
-        p->tamanho--;
-        free(aux);
     }
+
+    pAux = pPilha->ApontadorTopo;
+    pPilha->ApontadorTopo = pAux->Prox;
+    *pilhaitem = pAux->item;
+    free(pAux);
+    pPilha->tamanho--;
+
+    return;
 }

@@ -7,23 +7,23 @@
 //declaração de struct
 typedef struct{
     //dados
-}Cel;
+}TADFILACELULA;
  
 //declaração do struct fila
 typedef struct {
-    Cel dado[MAX];
+    TADFILACELULA dado[MAX];
     int frente, tras, tam;
-}Fila;
+}TADFILA;
  
 //função inicia fila
-void Start(Fila *f){
+void FilaInicia(TADFILA *f){
     f->frente = 0;
     f->tras = f->frente;
     f->tam = 0;
 }
  
 //função insere dado na fila
-void push(Fila *f, Cel novo){
+void FilaInsere(TADFILA *f, TADFILACELULA novo){
     if(f->frente == (f->tras+1) % MAX){
         return;
     }
@@ -34,7 +34,7 @@ void push(Fila *f, Cel novo){
 }
  
 // função remove dado fila
-void pop(Fila *f, Cel *a){
+void FilaRemove(TADFILA *f, TADFILACELULA *a){
     if (f->frente != f->tras){
         *a = f->dado[f->frente];
         f->frente = (f->frente+1)%MAX;

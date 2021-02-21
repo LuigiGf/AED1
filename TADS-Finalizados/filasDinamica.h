@@ -1,30 +1,30 @@
 #include <stdlib.h>
  
-typedef struct Celula Cel;
+typedef struct Celula TADCELFILA;
  
  //struct celula
 struct Celula{
-    Cel *prox;
+    TADCELFILA *prox;
     //dados
     int dado;
 };
  
  //struct fila
 typedef struct{
-    Cel *frente, *tras;
+    TADCELFILA *frente, *tras;
     int tamanho;
-}Fila;
+}TADFILA;
  
  //funcao inicia fila
-void Start(Fila *f){
+void FilaInicia(TADFILA *f){
     f->frente = NULL;
     f->tras = NULL;
     f->tamanho = 0;
 }
  
  //funcao adiciona dado na fila
-void Push(Fila *f, int dado){
-    Cel *novo = (Cel *) malloc(sizeof(Cel)); 
+void FilaInsere(TADFILA *f, int dado){
+    TADCELFILA *novo = (TADCELFILA *) malloc(sizeof(TADCELFILA)); 
  
     novo->prox = NULL;
     novo->dado = dado;
@@ -39,8 +39,8 @@ void Push(Fila *f, int dado){
 }
  
 //funcao remove dado da fila
-void Pop(Fila *f, int *dado){
-    Cel *Aux;
+void FilaRemove(TADFILA *f, int *dado){
+    TADCELFILA *Aux;
     if (f->tamanho == 0){
         return;
     }

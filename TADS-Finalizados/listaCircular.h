@@ -3,75 +3,75 @@
  //item da celula
 typedef struct {
     char dado;
-}Item;
+}ListaItem;
  
 typedef struct SCelula *Apontador;
  
  //celula com item e apontador para a proxima celula
 typedef struct SCelula {
-    Item item;
+    ListaItem item;
     Apontador prox;
-}Celula;
+}ListaCelula;
  
  //lista com uma celula cabeça chamada ultimo e tamanho da lista
 typedef struct{
     Apontador Ultimo;
     int tamanho;
-}Lista;
+}TADLista;
  
 //inicia
-void Start(Lista *lista){
-    lista->Ultimo = (Apontador) malloc(sizeof(Celula));
+void ListaInicia(TADLista *lista){
+    lista->Ultimo = (Apontador) malloc(sizeof(ListaCelula));
     lista->Ultimo->prox = lista->Ultimo;
     lista->tamanho = 0;
 }
  
 //vazia
-int Empty(Lista *lista){
+int ListaVerificaVazia(TADLista *lista){
     return (lista->Ultimo->prox == lista->Ultimo);
 }
  
 //retorna o tamanho
-int Tam(Lista *lista){
+int ListaTamanho(TADLista *lista){
     return (lista->tamanho);
 }
  
 //adciona na lista
-void Push(Lista *lista, Apontador new, Item item){
-    Apontador pAnterior, pNew;
+void ListaInsere(TADLista *lista, Apontador novo, ListaItem item){
+    Apontador pAnterior, pNovo;
     
     pAnterior = lista->Ultimo->prox;
-    while((pAnterior != lista->Ultimo) && (pAnterior->prox != new)){
+    while((pAnterior != lista->Ultimo) && (pAnterior->prox != novo)){
         pAnterior = pAnterior->prox;
     }
-    if(pAnterior->prox != new){
+    if(pAnterior->prox != novo){
         return;
     }
     
-    pNew = (Apontador) malloc(sizeof(Celula));
-    pNew->item = item;
-    pNew->prox = pAnterior->prox;
-    pAnterior->prox = pNew;
+    pNovo = (Apontador) malloc(sizeof(ListaCelula));
+    pNovo->item = item;
+    pNovo->prox = pAnterior->prox;
+    pAnterior->prox = pNovo;
     if(pAnterior == lista->Ultimo){
-        lista->Ultimo = pNew;
+        lista->Ultimo = pNovo;
     }
     lista->tamanho++;
 }
  
 //remove da lista
-void Pop(Lista *lista, Apontador new){
+void ListaRemove(TADLista *lista, Apontador novo){
     Apontador Anterior, Aux;
  
-    if(Empty(lista)){
+    if(ListaVerificaVazia(lista)){
         return;
     }
  
     Anterior = lista->Ultimo->prox;
-    while((Anterior != lista->Ultimo) && (Anterior->prox != new)){
+    while((Anterior != lista->Ultimo) && (Anterior->prox != novo)){
         Anterior = Anterior->prox;
     }
  
-    if(Anterior->prox != new){
+    if(Anterior->prox != novo){
         return;
     }
  
@@ -87,7 +87,7 @@ void Pop(Lista *lista, Apontador new){
 }
  
 //encontra uma posição
-Apontador ReturnPosition(Lista *lista, int p){
+Apontador ListaRetornaPosicao(TADLista *lista, int p){
     Apontador aux;
     int posicao = 0;
  

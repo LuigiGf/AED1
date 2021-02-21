@@ -3,15 +3,15 @@ typedef struct
 {
     float valor[50];
     int topo;
-} Pilha;
+} TADPilha;
  
 //iniciando topo da pilha como 0
-void start(Pilha *p){
+void start(TADPilha *p){
  
     p->topo = 0;
 }
  
-void add(Pilha *p, float *v){
+void add(TADPilha *p, float *v){
  
     if(p->topo==50)
         return;
@@ -23,7 +23,7 @@ void add(Pilha *p, float *v){
     }
 }
  
-void rem(Pilha *p, float *v){
+void rem(TADPilha *p, float *v){
  
     if (p->topo != 0)
     {

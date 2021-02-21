@@ -3,49 +3,49 @@
  //struct dos items a serem utilizados na celula
 typedef struct{
     char entrada;
-}Item;
+}ListaItem;
  
-typedef struct SCelula *Apontador;
+typedef struct ListaSCelula *ListaApontador;
  
  //struct da celula com os itens e apontador tanto para a proxima celula quanto para a celula anterior
-typedef struct SCelula {
-    Item item;
-    Apontador Ant, Prox;
-}Celula;
+typedef struct ListaSCelula {
+    ListaItem item;
+    ListaApontador Ant, Prox;
+}ListaCelula;
  
 //struct lista com celula apontadora cabeça e tamanho
 typedef struct{
-    Apontador Ultimo;
+    ListaApontador Ultimo;
     int tamanho;
-}Lista;
+}TADLista;
  
 //Inicia a lista
-void Start(Lista *lista){
-    lista->Ultimo = (Apontador) malloc(sizeof(Celula));
+void ListaInicia(TADLista *lista){
+    lista->Ultimo = (ListaApontador) malloc(sizeof(ListaCelula));
     lista->Ultimo->Prox = lista->Ultimo;
     lista->Ultimo->Ant = lista->Ultimo;
     lista->tamanho = 0;
 }
  
 //Retorna se a lista está vazia
-int Empty(Lista *lista){
+int ListaVerificaVazia(TADLista *lista){
     return (lista->Ultimo->Prox == lista->Ultimo);
 }
  
 //Retorna o tamanho da lista
-int Tam(Lista *lista){
+int ListaTamanho(TADLista *lista){
     return (lista->tamanho);
 }
  
 //insere um item na lista, posicao position
-void Push(Lista *lista, Apontador position, Item item){
-    Apontador pNovo;
+void ListaInsere(TADLista *lista, ListaApontador position, ListaItem item){
+    ListaApontador pNovo;
  
     if(position == NULL){
         return;
     }
  
-    pNovo = (Apontador) malloc(sizeof(Celula));
+    pNovo = (ListaApontador) malloc(sizeof(ListaCelula));
     pNovo->item = item;
     pNovo->Prox = position;
     pNovo->Ant = position->Ant;
@@ -60,10 +60,10 @@ void Push(Lista *lista, Apontador position, Item item){
 }
  
 //remove um item na lista, posicao position
-void Pop(Lista *lista, Apontador position){
-    Apontador pAux;
+void ListaRemove(TADLista *lista, ListaApontador position){
+    ListaApontador pAux;
  
-    if(Empty(lista)){
+    if(ListaVerificaVazia(lista)){
         return;
     }
  
@@ -80,8 +80,8 @@ void Pop(Lista *lista, Apontador position){
 }
  
 //retorna um apontador para o numero da lista
-Apontador listPosition(Lista *lista, int p){
-    Apontador pApontador;
+ListaApontador ListaPosicao(TADLista *lista, int p){
+    ListaApontador pApontador;
     int Posicao;
  
     Posicao = 0;
