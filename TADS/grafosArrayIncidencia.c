@@ -5,11 +5,11 @@
 typedef struct {
     int IncideAresta;
     int Aresta;
-} TADAdjacencia;
+} GrafoAdjacencia;
 
 //struct do grafo com o numero de adjacencias e o numero de vertices e arestas
 typedef struct {
-    TADAdjacencia Adj[MAXVERTICES][MAXARESTAS];
+    GrafoAdjacencia Adj[MAXVERTICES][MAXARESTAS];
     int nVertices;
     int nArestas;
 } TADGrafo;

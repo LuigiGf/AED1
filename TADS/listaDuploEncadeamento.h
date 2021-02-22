@@ -2,7 +2,7 @@
  
  //struct dos items a serem utilizados na celula
 typedef struct{
-    char entrada;
+    int entrada;
 }ListaItem;
  
 typedef struct ListaSCelula *ListaApontador;
@@ -60,7 +60,7 @@ void ListaInsere(TADLista *lista, ListaApontador position, ListaItem item){
 }
  
 //remove um item na lista, posicao position
-void ListaRemove(TADLista *lista, ListaApontador position){
+void ListaRemove(TADLista *lista, ListaApontador position, ListaItem *pX){
     ListaApontador pAux;
  
     if(ListaVerificaVazia(lista)){
@@ -74,9 +74,10 @@ void ListaRemove(TADLista *lista, ListaApontador position){
     if(pAux == lista->Ultimo){
         lista->Ultimo = position->Ant;
     }
- 
+    *pX = pAux->item;
     free(pAux);
     lista->tamanho--;
+    return;
 }
  
 //retorna um apontador para o numero da lista
