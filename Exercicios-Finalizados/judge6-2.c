@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #define MAXVERTICES 100
 
@@ -86,7 +87,9 @@ ListaApontador ListaRetornaPosicao(TADLista *pLista, int p)
     return pApontador;
 }
 
-//===============================================================================================================
+//=======================================================================
+
+//TAD GRAFO
 typedef struct {
     TADLista Adj[MAXVERTICES];
     int NVertices;
@@ -179,4 +182,45 @@ int GrafoNVertices(TADGrafo *pGrafo)
 int GrafoNArestas(TADGrafo *pGrafo)
 {
     return (pGrafo->NArestas);
+}
+
+int Dependencias(TADGrafo *grafo, int v) {
+    int u, NumeroDeDependencias = 0;
+
+    for (u = 0; u < grafo->NVertices; u++) {
+        if (GrafoExisteAresta(grafo, u, v)){
+            NumeroDeDependencias++;
+        }
+    }
+
+    return NumeroDeDependencias;
+}
+
+int main(void) {
+    TADGrafo grafo;
+    TADLista *lista;
+
+    int nPacotes, nDependeciasPacotes, i, u, v, dep;
+    TAdjacencia aux;
+    scanf("%d %d", &nPacotes, &nDependeciasPacotes);
+    GrafoInicia(&grafo, nPacotes);
+
+    for (i = 0; i < nDependeciasPacotes; i++) {
+        scanf("%d %d", &u, &v);
+        GrafoInsereAresta(&grafo, u - 1, v - 1, 2);
+    }
+  
+    for (i = 0; i < nPacotes; i++) {
+        dep = Dependencias(&grafo, i);
+        lista = GrafoListaAdjacencia(&grafo, i);
+        printf("%d %d %d", i + 1, dep, lista->tam);
+
+        while(ListaRetira(lista, ListaRetornaPosicao(lista, 0), &aux) != 0) {
+            printf(" %d", aux.Vertice + 1);
+        }
+
+        printf("\n");
+    }
+
+    return 0;
 }
