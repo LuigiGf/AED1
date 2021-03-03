@@ -1,14 +1,9 @@
 #include <stdlib.h>
 
-typedef struct {
-    //dados
-    int exemplo;
-}PilhaItem;
+typedef struct pilhaCelula *PilhaApontador;
 
-typedef struct PilhaCelula *PilhaApontador;
-
-typedef struct {
-    PilhaItem item;
+typedef struct pilhaCelula{
+    int item;
     PilhaApontador prox;
 }PilhaCelula;
 
@@ -41,7 +36,7 @@ void PilhaInsere(TADPilha *pPilha, int entradaExemplo){
     return;
 }
 
-void PilhaRemove(TADPilha *pPilha, PilhaItem *pilhaitem){
+void PilhaRemove(TADPilha *pPilha, int pilhaitem){
     PilhaApontador pAux;
 
     if(PilhaVazia(pPilha)){
@@ -49,8 +44,8 @@ void PilhaRemove(TADPilha *pPilha, PilhaItem *pilhaitem){
     }
 
     pAux = pPilha->ApontadorTopo;
-    pPilha->ApontadorTopo = pAux->Prox;
-    *pilhaitem = pAux->item;
+    pPilha->ApontadorTopo = pAux->prox;
+    pilhaitem = pAux->item;
     free(pAux);
     pPilha->tamanho--;
 
